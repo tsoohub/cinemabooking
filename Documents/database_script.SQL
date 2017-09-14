@@ -22,7 +22,9 @@ CREATE TABLE `cinema`.`MOVIE`
  COMMENT 'Rate types are: G RATING, PG RATING, PG-13 RATING, R RATING, NC-17 RATING
 ',
   `ACTORS` Varchar(300) NOT NULL
- COMMENT 'Seperate values with ";"'
+ COMMENT 'Seperate values with ";"',
+  `STARTDATE` Date NOT NULL,
+  `ENDDATE` Date NOT NULL
 )
 ;
 
@@ -186,9 +188,7 @@ CREATE TABLE `cinema`.`SHOWTIME`
   `ID` Int UNSIGNED NOT NULL,
   `HALL_ID` Int UNSIGNED NOT NULL,
   `MOVIE_ID` Int UNSIGNED NOT NULL,
-  `MOVIETIME` Mediumint UNSIGNED NOT NULL,
-  `STARTDATE` Date NOT NULL,
-  `ENDDATE` Date NOT NULL
+  `MOVIETIME` Mediumint UNSIGNED NOT NULL
 )
 ;
 
