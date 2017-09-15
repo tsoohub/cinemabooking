@@ -16,9 +16,6 @@ import javafx.stage.Stage;
  */
 public class AdminWindow extends Stage {
 
-    @SuppressWarnings("serial")
-    GridPane gridMain = new GridPane();
-
     public AdminWindow(String title) {
 
         // images
@@ -41,6 +38,7 @@ public class AdminWindow extends Stage {
         btnTicket.setGraphic(new ImageView(imageTicket));
         btnTicket.setOnAction(new BtnTicketEventHandler());
 
+        final GridPane gridMain = new GridPane();
         gridMain.setAlignment(Pos.CENTER);
         gridMain.add(btnMovies, 0, 0);
         gridMain.add(btnShowTime, 1, 0);
@@ -58,7 +56,9 @@ public class AdminWindow extends Stage {
 
         @Override
         public void handle(ActionEvent t) {
-            // todo
+            MovieWindow.getInstance().initiate();
+            MovieWindow.getInstance().show();
+            MovieWindow.getInstance().toFront();
         }
     }
 
@@ -66,7 +66,9 @@ public class AdminWindow extends Stage {
 
         @Override
         public void handle(ActionEvent t) {
-            // todo
+            ShowTimeWindow.getInstance().initiate();
+            ShowTimeWindow.getInstance().show();
+            ShowTimeWindow.getInstance().toFront();
         }
     }
 
@@ -74,7 +76,9 @@ public class AdminWindow extends Stage {
 
         @Override
         public void handle(ActionEvent t) {
-            // todo
+            OrderWindow.getInstance().initiate();
+            OrderWindow.getInstance().show();
+            OrderWindow.getInstance().toFront();
         }
     }
 
@@ -82,7 +86,9 @@ public class AdminWindow extends Stage {
 
         @Override
         public void handle(ActionEvent t) {
-            // todo
+            TicketWindow.getInstance().initiate();
+            TicketWindow.getInstance().show();
+            TicketWindow.getInstance().toFront();
         }
     }
 }

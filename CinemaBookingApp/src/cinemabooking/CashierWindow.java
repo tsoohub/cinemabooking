@@ -16,9 +16,6 @@ import javafx.stage.Stage;
  */
 public class CashierWindow extends Stage {
 
-    @SuppressWarnings("serial")
-    GridPane gridMain = new GridPane();
-
     public CashierWindow(String title) {
 
         // images
@@ -33,6 +30,7 @@ public class CashierWindow extends Stage {
         btnTicket.setGraphic(new ImageView(imageTicket));
         btnTicket.setOnAction(new BtnTicketEventHandler());
 
+        final GridPane gridMain = new GridPane();
         gridMain.setAlignment(Pos.CENTER);
         gridMain.add(btnOrder, 0, 0);
         gridMain.add(btnTicket, 1, 0);
@@ -48,7 +46,9 @@ public class CashierWindow extends Stage {
 
         @Override
         public void handle(ActionEvent t) {
-            // todo
+            OrderWindow.getInstance().initiate();
+            OrderWindow.getInstance().show();
+            OrderWindow.getInstance().toFront();
         }
     }
 
@@ -56,7 +56,9 @@ public class CashierWindow extends Stage {
 
         @Override
         public void handle(ActionEvent t) {
-            // todo
+            TicketWindow.getInstance().initiate();
+            TicketWindow.getInstance().show();
+            TicketWindow.getInstance().toFront();
         }
     }
 }

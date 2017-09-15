@@ -25,7 +25,8 @@ import javafx.stage.Stage;
 public class PrimaryWindow extends Application {
 
     private final Text actionInfo = new Text();
-    private static final String WINDOW_TITLE = "Cinema booking system";
+    public static final String WINDOW_TITLE = "Cinema booking system";
+    private static final String CSS_PATH = "/resource/style_primarywindow.css";
     private final TextField tfUsername = new TextField();
     private final PasswordField passwordField = new PasswordField();
     private Stage adminWindow;
@@ -50,6 +51,7 @@ public class PrimaryWindow extends Application {
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         scenetitle.setId("welcome-text");
         actionInfo.setId("actionInfo");
+        actionInfo.setFill(Color.FIREBRICK);
 
         //
         tfUsername.setText("eegii");
@@ -70,7 +72,7 @@ public class PrimaryWindow extends Application {
         grid.add(actionInfo, 1, 5);
 
         Scene scene = new Scene(grid, 300, 200);
-        scene.getStylesheets().addAll(this.getClass().getResource("/resource/style.css").toExternalForm());
+        scene.getStylesheets().addAll(this.getClass().getResource(CSS_PATH).toExternalForm());
         primaryStage.setTitle(WINDOW_TITLE);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
@@ -83,7 +85,6 @@ public class PrimaryWindow extends Application {
         public void handle(ActionEvent t) {
             String loggedUser = signIn();
             if (loggedUser == null) {
-                actionInfo.setFill(Color.FIREBRICK);
                 actionInfo.setText("Username or password is invalid!");
             } else if (loggedUser.toLowerCase().equals("admin")) {
                 createAdminWindow();
