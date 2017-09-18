@@ -156,7 +156,7 @@ public class CinemaDatabase extends Database {
 
     public String setOrder(Order order) {
         String ret = null;
-        final String sql = "UPDATE ORDER SET STATE = ? WHERE ID = ?";
+        final String sql = "UPDATE ORDERS SET STATE = ? WHERE ID = ?";
         PreparedStatement ps = null;
         try {
             checkConn();
@@ -517,7 +517,7 @@ public class CinemaDatabase extends Database {
         ResultSet rs = null;
         try {
             checkConn();
-            ps = preparedStatement(sql, code, 1);
+            ps = preparedStatement(sql, code, 0);
             rs = ps.executeQuery();
             if (rs.next()) {
                 ret = new Order(rs.getInt("ID"),
@@ -634,9 +634,9 @@ public class CinemaDatabase extends Database {
 
     public ShowTime getShowTime(Order order) {
         ShowTime ret = null;
-        final String sql = "SELECT * FROM SHOWTIME A RIGHT JOIN ORDER B "
+        final String sql = "SELECT * FROM SHOWTIME A RIGHT JOIN ORDERS B "
                 + "ON A.ID = B.SHOWTIME_ID "
-                + "WHERE A.ID = ? ";
+                + "WHERE B.ID = ? ";
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {

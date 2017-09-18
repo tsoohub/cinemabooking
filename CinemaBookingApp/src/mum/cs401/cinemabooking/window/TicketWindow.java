@@ -170,7 +170,17 @@ public class TicketWindow extends Stage {
         tfMovie.setValue(movie);
         tfTime.setValue(showTime);
         tfFirstname.setText(customer.getFirstName());
-        tfAdultSeat.setText(String.valueOf(order.getTicketList().size()));
+        int adultTotal = 0;
+        int childTotal = 0;
+        for (Ticket ticket : order.getTicketList()) {
+            if (ticket.getAmount().equals(movie.getPriceByAgeType(Movie.AGETYPE_ADULT))) {
+                adultTotal++;
+            } else {
+                childTotal++;
+            }
+        }
+        tfAdultSeat.setText(String.valueOf(adultTotal));
+        tfChildSeat.setText(String.valueOf(childTotal));
     }
 
     private class BtnSellEventHandler implements EventHandler<ActionEvent> {
@@ -203,8 +213,8 @@ public class TicketWindow extends Stage {
             } else {
                 order.setState((byte) 1);
                 order.setStateDate(new Date());
-                ShowTime showTime = (ShowTime) tfTime.getSelectionModel().getSelectedItem();
-                ret = CinemaDatabaseFactory.getInstanceDB().insertOrder(order, showTime.getId(), tfFirstname.getText());
+                ret = CinemaDatabaseFactory.getInstanceDB().setOrder(order);
+                //ret = CinemaDatabaseFactory.getInstanceDB().insertOrder(order, showTime.getId(), tfFirstname.getText());
             }
             if (ret != null && ret.equals("success")) {
                 initiate();
