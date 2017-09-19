@@ -11,7 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -214,8 +217,8 @@ public class TicketWindow extends Stage {
                 order.setState((byte) 1);
                 order.setStateDate(new Date());
                 ret = CinemaDatabaseFactory.getInstanceDB().setOrder(order);
-                //ret = CinemaDatabaseFactory.getInstanceDB().insertOrder(order, showTime.getId(), tfFirstname.getText());
             }
+            printReciept();
             if (ret != null && ret.equals("success")) {
                 initiate();
                 actionInfo.setText("Done!");
@@ -223,6 +226,45 @@ public class TicketWindow extends Stage {
                 actionInfo.setText("Sorry, failed to sell tickets!");
             }
         }
+    }
+
+    private void printReciept() {
+        StringBuilder str = new StringBuilder();
+        ShowTime showTime = (ShowTime) tfTime.getSelectionModel().getSelectedItem();
+        Movie movie = (Movie) tfMovie.getSelectionModel().getSelectedItem();
+        Customer customer = CinemaDatabaseFactory.getInstanceDB().getCustomer(order.getId());
+        str.append("=======================================\n\n");
+        str.append("Customer: ");
+        str.append(customer.getFirstName());
+        str.append(" ");
+        str.append(customer.getLastName());
+        str.append("\n---------------------------------------\n");
+        str.append("Movie: ");
+        str.append(movie.getName());
+        str.append("\n");
+        str.append("Time: ");
+        str.append(showTime.toString());
+        str.append("\n");
+        str.append("Seat numbers: ");
+        boolean first = true;
+        for (Ticket ticket : order.getTicketList()) {
+            if (first) {
+                str.append(ticket.getSeatNumber());
+                first = false;
+            } else {
+                str.append(", ");
+                str.append(ticket.getSeatNumber());
+            }
+        }
+        str.append("\n");
+        str.append("Total amount: ");
+        str.append(order.getAmount());
+        str.append("\n\n=======================================");
+        Alert alert = new Alert(AlertType.INFORMATION, str.toString(), ButtonType.OK);
+        alert.setTitle("Receipt");
+        alert.setHeaderText("Receipt");
+        alert.showAndWait();
+        System.out.println(str.toString());
     }
 
     private class BtnCalculateEventHandler implements EventHandler<ActionEvent> {
