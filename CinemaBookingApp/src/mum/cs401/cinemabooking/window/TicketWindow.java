@@ -71,7 +71,7 @@ public class TicketWindow extends Stage {
         final Label lblTime = new Label("Time:");
         final Label lblAdultSeat = new Label("Adult seat:");
         final Label lblChildSeat = new Label("Child seat:");
-        final Label lblPhone = new Label("Firstname:");
+        final Label lblCustomerFname = new Label("Firstname:");
         final Label lblPaymentType = new Label("Payment type:");
 
         // combobox                        
@@ -113,7 +113,7 @@ public class TicketWindow extends Stage {
         gridFirst.add(tfAdultSeat, 1, 2);
         gridFirst.add(lblChildSeat, 0, 3);
         gridFirst.add(tfChildSeat, 1, 3);
-        gridFirst.add(lblPhone, 0, 5);
+        gridFirst.add(lblCustomerFname, 0, 5);
         gridFirst.add(tfFirstname, 1, 5);
         gridFirst.add(lblPaymentType, 0, 6);
         gridFirst.add(tfPaymentType, 1, 6);

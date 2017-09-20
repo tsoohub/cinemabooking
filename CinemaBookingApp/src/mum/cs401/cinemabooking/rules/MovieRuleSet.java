@@ -11,8 +11,8 @@ import mum.cs401.cinemabooking.window.MovieWindow;
 final class MovieRuleSet implements InputRules {
 
     private static final String REGEX_NUM = "^\\d+$";
-    private static final String REGEX_ALP = "^[A-Z]+[a-z]+\\s+$";
-    private static final String REGEX_ACTOR = "^[A-Z]+[a-z]+\\s+,+$";
+    private static final String REGEX_ALP = "^[A-Z]+[a-z]+\\s?$";
+    private static final String REGEX_ACTOR = "^[A-Z]+[a-z]+\\s?,?$";
 
     MovieRuleSet() {
     }

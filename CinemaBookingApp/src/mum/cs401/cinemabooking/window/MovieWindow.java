@@ -177,6 +177,7 @@ public class MovieWindow extends Stage {
         tfStartDate.setValue(today);
         today.plusDays(30);
         tfEndDate.setValue(today);
+        tfDirector.setText("");
         actionInfo.setText("");
         tfDuration.setText("");
         tfName.setText("");

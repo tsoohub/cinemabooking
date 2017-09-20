@@ -11,7 +11,7 @@ import mum.cs401.cinemabooking.window.TicketWindow;
 final class TicketRuleSet implements InputRules {
 
     private static final String REGEX_NUM = "^\\d+$";
-    private static final String REGEX_ALP = "^[A-Z]+[a-z]+\\s+$";
+    private static final String REGEX_ALP = "^[A-Z]+[a-z]+\\s?$";
 
     TicketRuleSet() {
     }
