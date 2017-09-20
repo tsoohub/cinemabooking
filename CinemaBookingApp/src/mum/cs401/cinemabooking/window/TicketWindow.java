@@ -28,6 +28,9 @@ import mum.cs401.cinemabooking.entity.Movie;
 import mum.cs401.cinemabooking.entity.Order;
 import mum.cs401.cinemabooking.entity.ShowTime;
 import mum.cs401.cinemabooking.entity.Ticket;
+import mum.cs401.cinemabooking.rules.InputRules;
+import mum.cs401.cinemabooking.rules.RuleException;
+import mum.cs401.cinemabooking.rules.RuleSetFactory;
 
 /**
  *
@@ -190,6 +193,9 @@ public class TicketWindow extends Stage {
 
         @Override
         public void handle(ActionEvent t) {
+            if (!validateInput()) {
+                return;
+            }
             String ret = null;
             if (order == null) {
                 ShowTime showTime = (ShowTime) tfTime.getSelectionModel().getSelectedItem();
@@ -271,6 +277,9 @@ public class TicketWindow extends Stage {
 
         @Override
         public void handle(ActionEvent t) {
+            if (!validateInput()) {
+                return;
+            }
             if (order != null && order.getAmount() != null) {
                 actionInfo.setText("Total amount: " + order.getAmount());
             } else {
@@ -308,5 +317,32 @@ public class TicketWindow extends Stage {
             tfTime.setItems(timeList);
             tfTime.getSelectionModel().selectFirst();
         }
+    }
+
+    private boolean validateInput() {
+        boolean retValue = false;
+        try {
+            InputRules inputRules = RuleSetFactory.getRuleSet(this);
+            inputRules.applyRules(this);
+            retValue = true;
+        } catch (RuleException re) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, re.getMessage(), ButtonType.OK);
+            alert.setTitle("Warnings");
+            alert.setHeaderText("Check your fields.");
+            alert.showAndWait();
+        }
+        return retValue;
+    }
+
+    public String getFirstname() {
+        return tfFirstname.getText();
+    }
+
+    public String getAdultSeat() {
+        return tfAdultSeat.getText();
+    }
+
+    public String getChildSeat() {
+        return tfChildSeat.getText();
     }
 }

@@ -10,7 +10,9 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -24,6 +26,9 @@ import mum.cs401.cinemabooking.database.CinemaDatabaseFactory;
 import mum.cs401.cinemabooking.entity.Category;
 import mum.cs401.cinemabooking.entity.Movie;
 import mum.cs401.cinemabooking.entity.MovieCategories;
+import mum.cs401.cinemabooking.rules.InputRules;
+import mum.cs401.cinemabooking.rules.RuleException;
+import mum.cs401.cinemabooking.rules.RuleSetFactory;
 
 /**
  *
@@ -190,6 +195,9 @@ public class MovieWindow extends Stage {
 
         @Override
         public void handle(ActionEvent t) {
+            if (!validateInput()) {
+                return;
+            }
             String ret = null;
             Date startDate = Date.from(tfStartDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date endDate = Date.from(tfEndDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -226,6 +234,49 @@ public class MovieWindow extends Stage {
                 LocalDate date = tfEndDate.getValue();
             }
         }
-
     }
+
+    private boolean validateInput() {
+        boolean retValue = false;
+        try {
+            InputRules inputRules = RuleSetFactory.getRuleSet(this);
+            inputRules.applyRules(this);
+            retValue = true;
+        } catch (RuleException re) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, re.getMessage(), ButtonType.OK);
+            alert.setTitle("Warnings");
+            alert.setHeaderText("Check your fields.");
+            alert.showAndWait();
+        }
+        return retValue;
+    }
+
+    public String getActors() {
+        return taActors.getText();
+    }
+
+    public String getChildPrice() {
+        return tfChildPrice.getText();
+    }
+
+    public String getAdultPrice() {
+        return tfAdultPrice.getText();
+    }
+
+    public String getTrailerLink() {
+        return tfTrailerLink.getText();
+    }
+
+    public String getName() {
+        return tfName.getText();
+    }
+
+    public String getDirector() {
+        return tfDirector.getText();
+    }
+
+    public String getDuration() {
+        return tfDuration.getText();
+    }
+
 }
