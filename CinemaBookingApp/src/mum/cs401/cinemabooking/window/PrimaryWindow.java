@@ -58,8 +58,8 @@ public class PrimaryWindow extends Application {
         actionInfo.setFill(Color.FIREBRICK);
 
         //
-        tfUsername.setText("admin");
-        passwordField.setText("Password1");
+        //tfUsername.setText("admin");
+        //passwordField.setText("Password1");
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
